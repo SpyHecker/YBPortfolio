@@ -1,106 +1,93 @@
 import { motion } from "framer-motion";
 
-const sectionVariants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0 }
+const sectionAnimation = {
+  hidden: { opacity: 0, y: 18 },
+  show: { opacity: 1, y: 0 }
 };
 
-export function AboutSection({ id = "about", title, body, mode }) {
-  return (
-    <motion.section
-      id={id}
-      variants={sectionVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.45 }}
-      className={baseCard(mode)}
-    >
-      <h2 className={sectionTitle(mode)}>{title}</h2>
-      <div className="space-y-3 text-sm leading-relaxed text-slate-300">
-        {body.map((line, idx) => (
-          <p key={idx}>{line}</p>
-        ))}
-      </div>
-    </motion.section>
-  );
-}
+export function AboutSection({ id = "about", content, mode }) {
+  const accent = mode === "cyber" ? "#2eff73" : "#9fb4a0";
+  const projectCount = content.projects.items.length;
 
-export function SkillsSection({ id = "skills", title, groups, mode }) {
   return (
     <motion.section
       id={id}
-      variants={sectionVariants}
+      variants={sectionAnimation}
       initial="hidden"
-      whileInView="visible"
+      whileInView="show"
       viewport={{ once: true, amount: 0.25 }}
-      transition={{ duration: 0.45, delay: 0.05 }}
-      className={baseCard(mode)}
+      transition={{ duration: 0.4 }}
+      className="grid gap-4 lg:grid-cols-[2.2fr_1fr_1fr]"
     >
-      <h2 className={sectionTitle(mode)}>{title}</h2>
-      <div className="grid gap-4 sm:grid-cols-2">
-        {groups.map((group) => (
-          <div key={group.label} className="space-y-2">
-            <p className={groupLabel(mode)}>{group.label}</p>
-            <div className="flex flex-wrap gap-2">
-              {group.items.map((item) => (
-                <span key={item} className={pillClass(mode)}>
-                  {item}
-                </span>
-              ))}
-            </div>
+      <article className="panel p-6">
+        <h2 className="headline text-4xl uppercase text-zinc-100">Philosophy</h2>
+        <p className="mt-4 max-w-2xl text-sm leading-relaxed text-zinc-300">{content.about.body[0]}</p>
+        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-zinc-300">{content.about.body[1]}</p>
+
+        <div className="mt-7 flex gap-8">
+          <div>
+            <p className="headline text-5xl uppercase" style={{ color: accent }}>05+</p>
+            <p className="mt-1 text-[0.62rem] uppercase tracking-[0.2em] text-zinc-500">Years Path</p>
           </div>
-        ))}
-      </div>
+          <div>
+            <p className="headline text-5xl uppercase" style={{ color: accent }}>{String(projectCount).padStart(2, "0")}</p>
+            <p className="mt-1 text-[0.62rem] uppercase tracking-[0.2em] text-zinc-500">Projects Deployed</p>
+          </div>
+        </div>
+      </article>
+
+      <article className="panel flex flex-col items-center justify-center p-6 text-center">
+        <div className="text-2xl">?</div>
+        <p className="mt-3 headline text-2xl uppercase text-zinc-100">3D Core</p>
+        <p className="mt-1 text-[0.6rem] uppercase tracking-[0.18em] text-zinc-500">Next / APIs / Database</p>
+      </article>
+
+      <article
+        className={`flex flex-col justify-end p-6 ${mode === "cyber" ? "neon-cyber bg-[#2eff73] text-black" : "neon-normal bg-[#9fb4a0] text-black"}`}
+      >
+        <p className="text-sm font-semibold uppercase tracking-[0.12em]">Security First</p>
+        <p className="headline mt-1 text-3xl uppercase leading-none">Mentality</p>
+      </article>
     </motion.section>
   );
 }
 
-export function ProjectsSection({ id = "projects", title, items, mode }) {
+export function ProjectsSection({ id = "projects", content, mode }) {
+  const accentClass = mode === "cyber" ? "text-[#2eff73]" : "text-[#9fb4a0]";
+
   return (
     <motion.section
       id={id}
-      variants={sectionVariants}
+      variants={sectionAnimation}
       initial="hidden"
-      whileInView="visible"
+      whileInView="show"
       viewport={{ once: true, amount: 0.25 }}
-      transition={{ duration: 0.45, delay: 0.05 }}
-      className={baseCard(mode)}
+      transition={{ duration: 0.4 }}
+      className="space-y-4"
     >
-      <div className="mb-4 flex items-center justify-between gap-2">
-        <h2 className={sectionTitle(mode)}>{title}</h2>
+      <div className="flex items-end justify-between">
+        <h2 className="headline text-6xl uppercase leading-[0.85] text-zinc-100 sm:text-7xl">Selected Works</h2>
+        <p className={`text-[0.62rem] uppercase tracking-[0.22em] ${accentClass}`}>Project Index</p>
       </div>
+
       <div className="grid gap-4 md:grid-cols-2">
-        {items.map((project) => (
-          <article
-            key={project.name}
-            className={`rounded-2xl border px-4 py-4 text-sm transition ${
-              mode === "cyber"
-                ? "border-cyber-border/80 bg-black/70 shadow-cyber-glow/40"
-                : "border-slate-700/70 bg-slate-950/90 shadow-soft-xl"
-            }`}
-          >
-            <h3
-              className={`text-sm font-semibold ${
-                mode === "cyber" ? "font-mono text-emerald-300" : "text-slate-50"
+        {content.projects.items.map((project, index) => (
+          <article key={project.name} className="panel group relative min-h-[260px] overflow-hidden p-6">
+            <div
+              className={`absolute inset-0 opacity-75 transition duration-300 group-hover:scale-105 ${
+                mode === "cyber"
+                  ? "bg-[radial-gradient(circle_at_35%_25%,_rgba(46,255,115,0.2),_transparent_50%),radial-gradient(circle_at_70%_70%,_rgba(22,201,255,0.15),_transparent_52%)]"
+                  : "bg-[radial-gradient(circle_at_35%_25%,_rgba(96,165,250,0.2),_transparent_50%),radial-gradient(circle_at_70%_70%,_rgba(52,211,153,0.15),_transparent_52%)]"
               }`}
-            >
-              {project.name}
-            </h3>
-            <p
-              className={`mt-1 text-xs ${
-                mode === "cyber" ? "font-mono text-emerald-300/80" : "text-slate-300"
-              }`}
-            >
-              {project.tagline}
-            </p>
-            <p className="mt-2 text-xs text-slate-400">{project.description}</p>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {project.tech.map((tech) => (
-                <span key={tech} className={pillClass(mode)}>
-                  {tech}
-                </span>
-              ))}
+            />
+            <div className="relative flex h-full flex-col justify-between">
+              <p className={`text-[0.6rem] uppercase tracking-[0.2em] ${accentClass}`}>
+                {String(index + 1).padStart(2, "0")} // {project.tech[0] || "stack"}
+              </p>
+              <div>
+                <h3 className="headline text-5xl uppercase leading-[0.9] text-zinc-100">{project.name}</h3>
+                <p className="mt-2 max-w-md text-sm text-zinc-300">{project.tagline}</p>
+              </div>
             </div>
           </article>
         ))}
@@ -109,172 +96,143 @@ export function ProjectsSection({ id = "projects", title, items, mode }) {
   );
 }
 
-export function TimelineSection({ id, title, items, mode }) {
+export function TimelineSection({ id = "experience", content, mode }) {
+  const accentClass = mode === "cyber" ? "text-[#2eff73]" : "text-[#9fb4a0]";
+  const items = [...content.experience.items, ...(content.education?.items || [])];
+
   return (
     <motion.section
       id={id}
-      variants={sectionVariants}
+      variants={sectionAnimation}
       initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.25 }}
-      transition={{ duration: 0.45 }}
-      className={baseCard(mode)}
+      whileInView="show"
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.4 }}
+      className="grid gap-6 lg:grid-cols-[0.65fr_1.35fr]"
     >
-      <h2 className={sectionTitle(mode)}>{title}</h2>
-      <div className="space-y-4">
+      <div>
+        <h2 className="headline text-6xl uppercase leading-[0.85] text-zinc-100 sm:text-7xl">Professional Trajectory</h2>
+      </div>
+
+      <div className="space-y-8">
         {items.map((item, idx) => (
-          <div key={idx} className="flex gap-3 text-sm">
-            <div className="mt-1 h-2 w-2 rounded-full bg-slate-500" />
-            <div className="space-y-1">
-              <p
-                className={`text-xs font-semibold ${
-                  mode === "cyber" ? "font-mono text-emerald-300" : "text-slate-100"
-                }`}
-              >
-                {item.role || item.school}
+          <article key={idx} className="border-t border-zinc-800 pt-5">
+            <div className="flex items-center justify-between gap-4">
+              <p className={`text-[0.6rem] uppercase tracking-[0.2em] ${accentClass}`}>
+                {item.period || "timeline"}
               </p>
-              <p className="text-xs text-slate-400">
-                {item.company || item.place} · {item.period}
-              </p>
-              {item.details && (
-                <p className="text-xs text-slate-400">
-                  {item.details}
-                </p>
-              )}
-              {item.bullets && (
-                <ul className="mt-1 list-disc space-y-1 pl-4 text-xs text-slate-300">
-                  {item.bullets.map((b, i) => (
-                    <li key={i}>{b}</li>
-                  ))}
-                </ul>
-              )}
+              <p className="text-[0.58rem] uppercase tracking-[0.18em] text-zinc-500">{item.place || item.company || "Global"}</p>
             </div>
-          </div>
+            <h3 className="headline mt-2 text-4xl uppercase leading-[0.9] text-zinc-100">
+              {item.role || item.school}
+            </h3>
+            {item.details ? <p className="mt-2 max-w-3xl text-sm text-zinc-300">{item.details}</p> : null}
+            {item.bullets ? (
+              <p className="mt-2 max-w-3xl text-sm text-zinc-300">{item.bullets[0]}</p>
+            ) : null}
+          </article>
         ))}
       </div>
     </motion.section>
   );
 }
 
-export function ListSection({ id, title, items, mode }) {
+export function SkillsSection({ id = "skills", content, mode }) {
+  const groups = content.skills.groups;
+  const colA = groups[0]?.items || [];
+  const colB = groups[1]?.items || [];
+  const colC = groups[2]?.items || groups[groups.length - 1]?.items || [];
+  const titleA = groups[0]?.label || "Front-End";
+  const titleB = groups[1]?.label || "Back-End";
+  const titleC = groups[2]?.label || "Security";
+
+  const accentClass = mode === "cyber" ? "text-[#2eff73]" : "text-[#9fb4a0]";
+
   return (
     <motion.section
       id={id}
-      variants={sectionVariants}
+      variants={sectionAnimation}
       initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.25 }}
-      transition={{ duration: 0.45 }}
-      className={baseCard(mode)}
+      whileInView="show"
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.4 }}
+      className="panel grid gap-5 p-6 md:grid-cols-3"
     >
-      <h2 className={sectionTitle(mode)}>{title}</h2>
-      <ul className="space-y-2 text-sm text-slate-300">
+      <SkillColumn title={titleA} items={colA} accentClass={accentClass} />
+      <SkillColumn title={titleB} items={colB} accentClass={accentClass} />
+      <SkillColumn title={titleC} items={colC} accentClass={accentClass} />
+    </motion.section>
+  );
+}
+
+function SkillColumn({ title, items, accentClass }) {
+  return (
+    <div>
+      <p className={`text-[0.62rem] uppercase tracking-[0.2em] ${accentClass}`}>{title}</p>
+      <ul className="mt-3 space-y-2">
         {items.map((item) => (
-          <li key={item} className="flex gap-2">
-            <span className="mt-[5px] h-1.5 w-1.5 rounded-full bg-slate-500" />
-            <span>{item}</span>
-          </li>
+          <li key={item} className="text-sm text-zinc-300">� {item}</li>
         ))}
       </ul>
-    </motion.section>
+    </div>
   );
 }
 
-export function ContactSection({ id = "contact", mode }) {
+export function ListSection({ id = "tools", content, mode }) {
+  if (!content.tools) return null;
+
+  const accentClass = mode === "cyber" ? "text-[#2eff73]" : "text-[#9fb4a0]";
+
   return (
     <motion.section
       id={id}
-      variants={sectionVariants}
+      variants={sectionAnimation}
       initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.25 }}
-      transition={{ duration: 0.45 }}
-      className={baseCard(mode)}
+      whileInView="show"
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.4 }}
+      className="panel p-6"
     >
-      <h2 className={sectionTitle(mode)}>Contact</h2>
-      <p className="mb-4 text-sm text-slate-300">
-        For opportunities, collaborations, or questions, feel free to reach out. I’ll respond as
-        soon as I can.
-      </p>
-      <form className="grid gap-3 text-sm sm:grid-cols-2">
-        <div className="space-y-1">
-          <label className="text-xs text-slate-400">Name</label>
-          <input
-            className={inputClass(mode)}
-            placeholder="Your name"
-          />
-        </div>
-        <div className="space-y-1">
-          <label className="text-xs text-slate-400">Email</label>
-          <input
-            className={inputClass(mode)}
-            placeholder="you@example.com"
-            type="email"
-          />
-        </div>
-        <div className="space-y-1 sm:col-span-2">
-          <label className="text-xs text-slate-400">Message</label>
-          <textarea
-            rows={4}
-            className={inputClass(mode) + " resize-none"}
-            placeholder="Tell me a bit about what you have in mind..."
-          />
-        </div>
-        <div className="sm:col-span-2">
-          <button
-            type="submit"
-            className={`inline-flex items-center justify-center rounded-full px-4 py-2 text-xs font-medium ${
-              mode === "cyber"
-                ? "bg-emerald-500/90 text-black shadow-cyber-glow hover:bg-emerald-400"
-                : "bg-slate-100/90 text-slate-900 shadow-soft-xl hover:bg-white"
-            }`}
-          >
-            Send message
-          </button>
-        </div>
-      </form>
+      <h3 className="headline text-3xl uppercase text-zinc-100">{content.tools.title}</h3>
+      <div className="mt-4 flex flex-wrap gap-2">
+        {content.tools.items.map((item) => (
+          <span key={item} className={`border border-zinc-700 px-3 py-1 text-xs uppercase tracking-[0.12em] ${accentClass}`}>
+            {item}
+          </span>
+        ))}
+      </div>
     </motion.section>
   );
 }
 
-function baseCard(mode) {
-  return [
-    "relative overflow-hidden border px-4 py-6 sm:rounded-3xl sm:px-8 sm:py-7 shadow-soft-xl",
-    mode === "cyber"
-      ? "border-cyber-border/80 bg-cyber-bg/95 cyber-grid"
-      : "border-slate-800/70 bg-slate-950/90"
-  ].join(" ");
-}
+export function ContactSection({ id = "contact", content, mode }) {
+  const accentButton = mode === "cyber" ? "bg-[#2eff73]" : "bg-[#9fb4a0]";
 
-function sectionTitle(mode) {
-  return [
-    "mb-4 text-sm font-semibold tracking-tight sm:text-base",
-    mode === "cyber" ? "font-mono text-emerald-300" : "text-slate-100"
-  ].join(" ");
-}
+  return (
+    <motion.section
+      id={id}
+      variants={sectionAnimation}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.4 }}
+      className="panel flex flex-col items-center px-6 py-16 text-center"
+    >
+      <h2 className="headline text-7xl uppercase leading-[0.82] text-zinc-100 sm:text-8xl">
+        Connect
+        <br />
+        Us
+      </h2>
+      <p className="mt-3 text-sm text-zinc-400">{content.hero.subtitle}</p>
 
-function groupLabel(mode) {
-  return [
-    "text-[0.7rem] font-medium uppercase tracking-[0.2em]",
-    mode === "cyber" ? "font-mono text-emerald-400/80" : "text-slate-400"
-  ].join(" ");
+      <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+        <button className={`${accentButton} px-6 py-3 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-black`}>
+          Send Transmission
+        </button>
+        <button className="border border-zinc-700 px-6 py-3 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-zinc-200">
+          Download CV.pdf
+        </button>
+      </div>
+    </motion.section>
+  );
 }
-
-function pillClass(mode) {
-  return [
-    "inline-flex items-center rounded-full border px-2.5 py-1 text-[0.7rem]",
-    mode === "cyber"
-      ? "border-emerald-500/70 bg-emerald-500/5 font-mono text-emerald-200"
-      : "border-slate-600/70 bg-slate-900/80 text-slate-100"
-  ].join(" ");
-}
-
-function inputClass(mode) {
-  return [
-    "w-full rounded-2xl border px-3 py-2 text-xs outline-none transition",
-    mode === "cyber"
-      ? "border-cyber-border/80 bg-black/80 text-emerald-100 placeholder:text-emerald-400/60 focus:border-emerald-400 focus:shadow-cyber-glow/60"
-      : "border-slate-700/70 bg-slate-950 text-slate-100 placeholder:text-slate-500 focus:border-slate-400 focus:ring-1 focus:ring-slate-500"
-  ].join(" ");
-}
-

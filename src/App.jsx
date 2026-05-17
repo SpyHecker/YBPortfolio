@@ -19,72 +19,26 @@ function AppShell() {
   const content = isCyber ? cyberContent : normalContent;
 
   return (
-    <div className="app-shell">
-      <div className="noise-overlay" />
+    <div className={`app-shell ${isCyber ? "cyber-mode" : "normal-mode"}`}>
+      <div className="grain-layer" />
       <Navbar />
-      <main className="relative z-10 mx-auto flex w-full max-w-6xl flex-1 flex-col gap-6 px-4 py-6 sm:px-6 sm:py-8">
+
+      <main className="relative z-10 mx-auto flex w-full max-w-[1240px] flex-1 flex-col gap-12 px-4 pb-12 pt-8 sm:px-6 lg:px-10">
         {isCyber ? <HeroCyber content={content} /> : <HeroNormal content={content} />}
 
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1.1fr)]">
-          <div className="space-y-6">
-            <AboutSection
-              id="about"
-              title={content.about.title}
-              body={content.about.body}
-              mode={mode}
-            />
-            <SkillsSection
-              id="skills"
-              title={content.skills.title}
-              groups={content.skills.groups}
-              mode={mode}
-            />
-          </div>
-          <div className="space-y-6">
-            <ProjectsSection
-              id="projects"
-              title={content.projects.title}
-              items={content.projects.items}
-              mode={mode}
-            />
-          </div>
-        </div>
+        <AboutSection id="about" content={content} mode={mode} />
 
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1.2fr)]">
-          <div className="space-y-6">
-            <TimelineSection
-              id="experience"
-              title={content.experience.title}
-              items={content.experience.items}
-              mode={mode}
-            />
-            {isCyber && content.tools ? (
-              <ListSection
-                id="tools"
-                title={content.tools.title}
-                items={content.tools.items}
-                mode={mode}
-              />
-            ) : null}
-          </div>
-          <div className="space-y-6">
-            <TimelineSection
-              id="education"
-              title={content.education?.title || "Education"}
-              items={content.education?.items || []}
-              mode={mode}
-            />
-            <ListSection
-              id="certifications"
-              title={content.certifications.title}
-              items={content.certifications.items}
-              mode={mode}
-            />
-          </div>
-        </div>
+        <ProjectsSection id="projects" content={content} mode={mode} />
 
-        <ContactSection id="contact" mode={mode} />
+        <TimelineSection id="experience" content={content} mode={mode} />
+
+        <SkillsSection id="skills" content={content} mode={mode} />
+
+        {isCyber && content.tools ? <ListSection id="tools" content={content} mode={mode} /> : null}
+
+        <ContactSection id="contact" content={content} mode={mode} />
       </main>
+
       <Footer />
     </div>
   );
@@ -97,4 +51,3 @@ export default function App() {
     </PortfolioModeProvider>
   );
 }
-
