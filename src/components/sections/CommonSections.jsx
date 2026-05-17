@@ -73,11 +73,25 @@ export function ProjectsSection({ id = "projects", content, mode }) {
       <div className="grid gap-4 md:grid-cols-2">
         {content.projects.items.map((project, index) => (
           <article key={project.name} className="panel group relative min-h-[260px] overflow-hidden p-6">
+            {/* Background image */}
+            {project.image && (
+              <div
+                className="absolute inset-0 transition-transform duration-500 ease-out group-hover:scale-110"
+                style={{
+                  backgroundImage: `url(${project.image})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              />
+            )}
+            {/* Dark overlay for readability */}
+            <div className="absolute inset-0 bg-black/60 transition-opacity duration-300 group-hover:bg-black/50" />
+            {/* Accent gradient layer */}
             <div
-              className={`absolute inset-0 opacity-75 transition duration-300 group-hover:scale-105 ${
+              className={`absolute inset-0 opacity-60 ${
                 mode === "cyber"
-                  ? "bg-[radial-gradient(circle_at_35%_25%,_rgba(46,255,115,0.2),_transparent_50%),radial-gradient(circle_at_70%_70%,_rgba(22,201,255,0.15),_transparent_52%)]"
-                  : "bg-[radial-gradient(circle_at_35%_25%,_rgba(96,165,250,0.2),_transparent_50%),radial-gradient(circle_at_70%_70%,_rgba(52,211,153,0.15),_transparent_52%)]"
+                  ? "bg-[radial-gradient(circle_at_35%_25%,_rgba(46,255,115,0.25),_transparent_50%),radial-gradient(circle_at_70%_70%,_rgba(22,201,255,0.2),_transparent_52%)]"
+                  : "bg-[radial-gradient(circle_at_35%_25%,_rgba(96,165,250,0.25),_transparent_50%),radial-gradient(circle_at_70%_70%,_rgba(52,211,153,0.2),_transparent_52%)]"
               }`}
             />
             <div className="relative flex h-full flex-col justify-between">
@@ -171,7 +185,7 @@ function SkillColumn({ title, items, accentClass }) {
       <p className={`text-[0.62rem] uppercase tracking-[0.2em] ${accentClass}`}>{title}</p>
       <ul className="mt-3 space-y-2">
         {items.map((item) => (
-          <li key={item} className="text-sm text-zinc-300">• {item}</li>
+          <li key={item} className="text-sm text-zinc-300">â€¢ {item}</li>
         ))}
       </ul>
     </div>
@@ -236,3 +250,4 @@ export function ContactSection({ id = "contact", content, mode }) {
     </motion.section>
   );
 }
+
