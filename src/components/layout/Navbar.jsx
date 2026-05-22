@@ -19,7 +19,7 @@ export function Navbar() {
   return (
     <header className="relative z-20 border-b border-zinc-900/90 bg-[#07090d]/96">
       <div className="mx-auto flex w-full max-w-[1240px] items-center justify-between px-4 py-4 sm:px-6 lg:px-10">
-        <div className="headline text-xl uppercase text-zinc-100">Architect</div>
+        <div className="headline text-xl uppercase text-zinc-100">YashBharambe</div>
 
         <nav className="hidden items-center gap-6 text-[0.62rem] uppercase tracking-[0.2em] text-zinc-400 md:flex">
           {links.map((link) => (

@@ -41,14 +41,16 @@ export const cyberContent = {
         tagline: "Exploring SQL injection detection and prevention",
         description:
           "Demonstrates common SQL injection vectors and compares vulnerable patterns with safer, parameterized queries.",
-        tech: ["Security", "Java", "MySQL"]
+        tech: ["Security", "Java", "MySQL"],
+        image: "/images/sql_protection_bg.png"
       },
       {
         name: "GitLearn (Security Track)",
         tagline: "Teaching secure workflows in Git‑based projects",
         description:
           "Concept for using GitLearn to highlight secure code review, secrets management, and safe branching strategies.",
-        tech: ["React", "Node.js", "Security concepts"]
+        tech: ["React", "Node.js", "Security concepts"],
+        image: "/images/gitlearn_bg.png"
       }
     ]
   },
@@ -84,6 +86,12 @@ export const cyberContent = {
       "Cybersecurity / VAPT training (placeholder)",
       "Additional security‑oriented courses (placeholder)"
     ]
+  },
+  contact: {
+    email: "ybharambe591@gmail.com",
+    github: "https://github.com/SpyHecker",
+    linkedin: "https://linkedin.com/in/yashbharambe",
+    cvPath: "/Yash_Bharambe_CV.pdf"
   }
 };
 

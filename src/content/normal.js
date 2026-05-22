@@ -42,14 +42,16 @@ export const normalContent = {
         tagline: "Learning platform powered by Git workflows",
         description:
           "An interactive learning platform that teaches Git concepts through hands‑on, scenario‑based exercises integrated with real repositories.",
-        tech: ["React", "Node.js", "MongoDB"]
+        tech: ["React", "Node.js", "MongoDB"],
+        image: "/images/gitlearn_bg.png"
       },
       {
         name: "SQL Protection Tool",
         tagline: "Securing database inputs and queries",
         description:
           "A utility focused on detecting unsafe SQL patterns, demonstrating common injection vectors, and showcasing safer query techniques.",
-        tech: ["Java", "MySQL", "Security"]
+        tech: ["Java", "MySQL", "Security"],
+        image: "/images/sql_protection_bg.png"
       }
     ]
   },
@@ -85,6 +87,12 @@ export const normalContent = {
       "Cybersecurity and VAPT related training (placeholder)",
       "Programming / web development related certifications (placeholder)"
     ]
+  },
+  contact: {
+    email: "ybharambe591@gmail.com",
+    github: "https://github.com/SpyHecker",
+    linkedin: "https://linkedin.com/in/yashbharambe",
+    cvPath: "/Yash_Bharambe_CV.pdf"
   }
 };
 
