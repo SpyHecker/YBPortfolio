@@ -86,6 +86,12 @@ export const cyberContent = {
       "Cybersecurity / VAPT training (placeholder)",
       "Additional security‑oriented courses (placeholder)"
     ]
+  },
+  contact: {
+    email: "ybharambe591@gmail.com",
+    github: "https://github.com/SpyHecker",
+    linkedin: "https://linkedin.com/in/yashbharambe",
+    cvPath: "/Yash_Bharambe_CV.pdf"
   }
 };
 

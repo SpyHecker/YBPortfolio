@@ -8,10 +8,10 @@ export function Footer() {
       <div className="mx-auto flex w-full max-w-[1240px] items-center justify-between px-4 py-4 text-[0.55rem] uppercase tracking-[0.18em] text-zinc-500 sm:px-6 lg:px-10">
         <span>&copy; {new Date().getFullYear()} Architectural Build. All rights reserved.</span>
         <div className="flex items-center gap-4">
-          <a className={`${isCyber ? "hover:text-[#2eff73]" : "hover:text-[#b8c5b9]"}`} href="https://github.com">
+          <a className={`${isCyber ? "hover:text-[#2eff73]" : "hover:text-[#b8c5b9]"}`} href="https://github.com/SpyHecker" target="_blank" rel="noopener noreferrer">
             GitHub
           </a>
-          <a className={`${isCyber ? "hover:text-[#2eff73]" : "hover:text-[#b8c5b9]"}`} href="https://linkedin.com">
+          <a className={`${isCyber ? "hover:text-[#2eff73]" : "hover:text-[#b8c5b9]"}`} href="https://linkedin.com/in/yashbharambe" target="_blank" rel="noopener noreferrer">
             LinkedIn
           </a>
         </div>

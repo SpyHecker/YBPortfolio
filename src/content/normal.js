@@ -87,6 +87,12 @@ export const normalContent = {
       "Cybersecurity and VAPT related training (placeholder)",
       "Programming / web development related certifications (placeholder)"
     ]
+  },
+  contact: {
+    email: "ybharambe591@gmail.com",
+    github: "https://github.com/SpyHecker",
+    linkedin: "https://linkedin.com/in/yashbharambe",
+    cvPath: "/Yash_Bharambe_CV.pdf"
   }
 };
 
